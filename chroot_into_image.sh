@@ -1,4 +1,5 @@
 #!/bin/zsh
+# (c) Bernhard Tittelbach, 2018, GPLv3
 local TARGETIMAGE=${1}
 local MOUNTPTH=$(mktemp -d)
 

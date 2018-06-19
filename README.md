@@ -25,6 +25,10 @@ Modifiactions include:
 - configure ssh and passwords
 
 
+License
+-------
+
+GPLv3 or if that's too cumbersome "use as you see fit but drop be a msg that you do".
 
 Todo
 ----
