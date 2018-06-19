@@ -1,0 +1,15 @@
+#!/bin/sh
+
+xset dpms 0 0 0
+xset -dpms
+xset s off
+xsetroot -cursor_name left_ptr
+xset dpms force on
+xset s noblank
+#RESOLUTION=$(xrandr -q | awk -F'current' -F',' 'NR==2 {gsub("( |current)","");print $2}')
+KIOSKURI="http://kilovalves.lan:5080"
+unclutter&
+test -d ~/.config/epiphany || mkdir -p ~/.config/epiphany
+sleep 3
+epiphany --profile ~/.config/epiphany -a "$KIOSKURI" &
+(sleep 3 && wmctrl -b add,fullscreen -r 0 -i & ) &
