@@ -141,9 +141,9 @@ cat $MYSSHPUBKEY | sudo tee -a ${MOUNTPTH}/root/.ssh/authorized_keys
 cat $MYSSHPUBKEY | sudo tee -a ${MOUNTPTH}/home/$MAINUSER/.ssh/authorized_keys
 
 ## newest zsh config
-sudo cp ~/.zshrc ~/.zshrc.local ${MOUNTPTH}/home/$MAINUSER/
+[[ -e ~/.zshrc ]] && sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/home/$MAINUSER/
 chown 1000:1000 -R ${MOUNTPTH}/home/$MAINUSER/
-sudo cp ~/.zshrc ~/.zshrc.local ${MOUNTPTH}/root/
+[[ -e ~/.zshrc ]] &&sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/root/
 
 ## set root read-only
 sudo sed -i '/mmcblk0p1/s/noatime,/noatime,ro,/' ${MOUNTPTH}/etc/fstab
