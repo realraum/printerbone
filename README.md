@@ -33,6 +33,7 @@ GPLv3 or if that's too cumbersome "use as you see fit but drop be a msg that you
 Todo
 ----
 
+- add second printer
 - improve configuration (what are shell variable at the top right now)
 - write python framework to work with existing images and then publish that code instead of depending on currently not included python-scripts
 - use Ansible instead of shell script
