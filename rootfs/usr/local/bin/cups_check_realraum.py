@@ -57,7 +57,8 @@ if __name__ == "__main__":
     print "isPrinterKnownToCups:", isPrinterKnownToCups(cc,printers_name)
     print "isPrinterUsbConnected:", isPrinterUsbConnected(printer_usb_name)
     while True:
-        jobs_pending = cc.getJobs(my_jobs=False)
+        # jobs_pending = cc.getJobs(my_jobs=False)
+        jobs_pending = filter(lambda jobid: cc.getJobAttributes(jobid,requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name),cc.getJobs(my_jobs=False).keys())
         printer_idle = jobs_pending == {}
         job_ids_completed = filter(lambda jobid: cc.getJobAttributes(jobid,requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name),cc.getJobs(which_jobs="completed",first_job_id=last_highest_completed_job_id).keys())
         if job_ids_completed:
