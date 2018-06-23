@@ -6,7 +6,7 @@ local BBSHORTHOST=${${(s:.:)BBHOSTNAME}[1]}
 local MOUNTPTH=$(mktemp -d)
 local APTSCRIPT=./aptscript.sh
 local LOCALROOT=./rootfs
-local MYSSHPUBKEY=~/.ssh/id_ed25519.pub
+local MYSSHPUBKEY=~/.ssh/id_rsa_realraum.pub
 local MAINUSER=debian
 local R3PASS_STORELOC=devices/drucker/debian
 R3NOCPASSDIR=${R3NOCPASSDIR:-~/realraum/noc-pass}
@@ -153,9 +153,9 @@ cat $MYSSHPUBKEY | sudo tee -a ${MOUNTPTH}/home/$MAINUSER/.ssh/authorized_keys
 ## newest zsh config
 [[ -e ~/.zshrc ]] && sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/home/$MAINUSER/
 sudo chown 1000:1000 -R ${MOUNTPTH}/home/$MAINUSER/
-sudo chmod 0750 ${MOUNTPTH}/home/$MAINUSER/
-sudo chmod 0750 ${MOUNTPTH}/home/$MAINUSER/.ssh
-[[ -e ~/.zshrc ]] &&sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/root/
+sudo chmod a=,g=rX,u=rwX ${MOUNTPTH}/home/$MAINUSER/
+sudo chmod a=,u=rwX -R ${MOUNTPTH}/home/$MAINUSER/.ssh/
+[[ -e ~/.zshrc ]] && sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/root/
 
 ## set root read-only
 sudo sed -i '/mmcblk0p1/s/noatime,/noatime,ro,/' ${MOUNTPTH}/etc/fstab
