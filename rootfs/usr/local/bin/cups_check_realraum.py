@@ -12,15 +12,12 @@ import Adafruit_BBIO.GPIO as GPIO
 
 relay_pin="P9_12"
 
-GPIO.setup(relay_pin, GPIO.OUT)
-
 time_needed_to_warm_up_print_pages_in_printer_mem_and_cool_down=20*60
 time_between_checks=1*20
-time_safe_from_switchoff_after_manual_toggle=10*60
 printers_name="HP_LaserJet_8000_Series"
 #printer_usb_name="Samsung CLP-550 Series"
 printer_usb_name="QinHeng Electronics CH340S"
-touch_file="/tmp/psw.printer"
+touch_file="/var/run/cups/"+printers_name+".powerswitch"
 
 def isPrinterUsbConnected(printer_usb_name):
     try:
@@ -47,8 +44,8 @@ def timeSinceLastToggle():
         return 99999999;
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "-d":
-        createDaemon()
+    GPIO.setup(relay_pin, GPIO.OUT)
+    GPIO.output(relay_pin,GPIO.LOW)
 
     print "connecting to CUPS..."
     cc = cups.Connection()
@@ -59,7 +56,7 @@ if __name__ == "__main__":
     while True:
         # jobs_pending = cc.getJobs(my_jobs=False)
         jobs_pending = filter(lambda jobid: cc.getJobAttributes(jobid,requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name),cc.getJobs(my_jobs=False).keys())
-        printer_idle = jobs_pending == {}
+        printer_idle = len(jobs_pending) == 0
         job_ids_completed = filter(lambda jobid: cc.getJobAttributes(jobid,requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name),cc.getJobs(which_jobs="completed",first_job_id=last_highest_completed_job_id).keys())
         if job_ids_completed:
             last_highest_completed_job_id = max(job_ids_completed)
@@ -80,7 +77,7 @@ if __name__ == "__main__":
         if printer_future_on != printer_current_state_power:
             if printer_future_on:
                 GPIO.output(relay_pin,GPIO.HIGH)
-            elif (seconds_toggle > time_safe_from_switchoff_after_manual_toggle):
+            else:
                 GPIO.output(relay_pin,GPIO.LOW)
-        
+
         time.sleep(time_between_checks)

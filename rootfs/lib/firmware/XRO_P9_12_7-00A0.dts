@@ -1,0 +1,110 @@
+/dts-v1/;
+/plugin/;
+
+/{
+    compatible = "ti,beaglebone", "ti,beaglebone-black", "ti,beaglebone-green";
+    part-number = "XRO_P9_12_0x7";
+    version = "00A0";
+    exclusive-use = "P9.12";
+
+    fragment@0 {
+        target = <&am33xx_pinmux>;
+
+        __overlay__ {
+            pinmux_P9_12_default_pin {
+                pinctrl-single,pins = <0x78 0x07>;
+                linux,phandle = <0x94>;
+                phandle = <0x94>;
+            };
+
+            pinmux_P9_12_gpio_pin {
+                pinctrl-single,pins = <0x78 0x2f>;
+                linux,phandle = <0x95>;
+                phandle = <0x95>;
+            };
+
+            pinmux_P9_12_gpio_pu_pin {
+                pinctrl-single,pins = <0x78 0x37>;
+                linux,phandle = <0x96>;
+                phandle = <0x96>;
+            };
+
+            pinmux_P9_12_gpio_pd_pin {
+                pinctrl-single,pins = <0x78 0x27>;
+                linux,phandle = <0x97>;
+                phandle = <0x97>;
+            };
+
+            pinmux_P9_12_gpio_input_pin {
+                pinctrl-single,pins = <0x78 0x2f>;
+                linux,phandle = <0x98>;
+                phandle = <0x98>;
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&am33xx_pinmux>;
+
+        __overlay__ {
+
+            P9_12_pinmux {
+                compatible = "bone-pinmux-helper";
+                status = "okay";
+                pinctrl-names = "default", "gpio", "gpio_pu", "gpio_pd", "gpio_input";
+                pinctrl-0 = <0x94>;
+                pinctrl-1 = <0x95>;
+                pinctrl-2 = <0x96>;
+                pinctrl-3 = <0x97>;
+                pinctrl-4 = <0x98>;
+            };
+        };
+    };
+
+    fragment@2 {
+        target = <&am33xx_pinmux>;
+
+        __overlay__ {
+            XRO_P9_12 {
+                compatible = "gpio-of-helper";
+                status = "okay";
+                pinctrl-names = "default";
+                pinctrl-0;
+
+                P9_12 {
+                    gpio-name = "P9_12";
+                    gpio = <&am33xx_pinmux 0x1c 0x0>;
+                    output;
+                    dir-changeable;
+                }; 
+            };           
+        };
+    };
+
+
+
+    __symbols__ {
+        P9_12_default_pin = "/fragment@0/__overlay__/pinmux_P9_12_default_pin";
+        P9_12_gpio_pin = "/fragment@0/__overlay__/pinmux_P9_12_gpio_pin";
+        P9_12_gpio_pu_pin = "/fragment@0/__overlay__/pinmux_P9_12_gpio_pu_pin";
+        P9_12_gpio_pd_pin = "/fragment@0/__overlay__/pinmux_P9_12_gpio_pd_pin";
+        P9_12_gpio_input_pin = "/fragment@0/__overlay__/pinmux_P9_12_gpio_input_pin";
+    };
+
+    __local_fixups__ {
+
+        fragment@1 {
+
+            __overlay__ {
+
+                P9_12_pinmux {
+                    pinctrl-0 = <0x0>;
+                    pinctrl-1 = <0x0>;
+                    pinctrl-2 = <0x0>;
+                    pinctrl-3 = <0x0>;
+                    pinctrl-4 = <0x0>;
+                };
+            };
+        };
+    }; 
+};

@@ -11,14 +11,4 @@
 #
 # By default this script does nothing.
 
-for gpio in 60 ; do
-  echo $gpio > /sys/class/gpio/export
-done
-
-sleep 1
-
-for gpio in 60 ; do
-  echo out > /sys/class/gpio/gpio${gpio}/direction
-done
-
 exit 0

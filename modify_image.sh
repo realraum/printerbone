@@ -76,9 +76,16 @@ fixuEnv() {
   sudo sed 's/^dtb=/#dtb=/;s/^\(cmdline=.*\) \w\+=enable$/\1/' -i "$uenv"
 
   ## disable eMMC/HDMI cape for green/black
-  echo "dtb=am335x-bonegreen-overlay.dtb" | sudo tee -a "$uenv"
+  #echo "dtb=am335x-bonegreen-overlay.dtb" | sudo tee -a "$uenv"
   ## oder
   ## echo "dtb=am335x-boneblack-overlay.dtb" >> "$uenv"
+
+  ## disable HDMI & Audio but NOT eMMC
+  echo "disable_uboot_overlay_video=1" | sudo tee -a "$uenv"
+  echo "disable_uboot_overlay_audio=1" | sudo tee -a "$uenv"
+
+  ## set pin P9_12 / GPIO60 to OUT and LOW
+  echo "dtb_overlay=/lib/firmware/XRO_P9_12_7-00A0.dtbo" | sudo tee -a "$uenv"
  
   ## diff  am335x-boneblack-overlay.dts  am335x-bonegreen-overlay.dts
   ## 6c6
@@ -126,6 +133,9 @@ fixuEnv
 
 ## settings and stuff
 sudo rsync --chown=root:root -va ${LOCALROOT}/  ${MOUNTPTH}/
+
+## remake initramfs for /lib/firmware files added to uEnv
+#runchroot /usr/sbin/update-initramfs -u
 
 ## tmpfs and other stuff for ro-root
 echo 'none    /tmp    tmpfs   rw,nosuid,nodev,mode=755        0 0' | sudo tee -a ${MOUNTPTH}/etc/fstab
