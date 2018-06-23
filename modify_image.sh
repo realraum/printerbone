@@ -137,6 +137,10 @@ sudo rsync --chown=root:root -va ${LOCALROOT}/  ${MOUNTPTH}/
 ## remake initramfs for /lib/firmware files added to uEnv
 #runchroot /usr/sbin/update-initramfs -u
 
+## set permissions for cups files
+sudo chown root:lp  -R ${MOUNTPTH}/etc/cups/ppd
+sudo chmod a=,u=rwX,g=rX -R ${MOUNTPTH}/etc/cups/ppd
+
 ## tmpfs and other stuff for ro-root
 echo 'none    /tmp    tmpfs   rw,nosuid,nodev,mode=755        0 0' | sudo tee -a ${MOUNTPTH}/etc/fstab
 ln -sf /proc/self/mounts  /etc/mtabs
