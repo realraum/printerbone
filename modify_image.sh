@@ -129,7 +129,6 @@ sudo rsync --chown=root:root -va ${LOCALROOT}/  ${MOUNTPTH}/
 
 ## tmpfs and other stuff for ro-root
 echo 'none    /tmp    tmpfs   rw,nosuid,nodev,mode=755        0 0' | sudo tee -a ${MOUNTPTH}/etc/fstab
-ln -sf /run/connman/resolv.conf /etc/resolv.conf
 ln -sf /proc/self/mounts  /etc/mtabs
 
 ## Hostname
@@ -143,7 +142,9 @@ cat $MYSSHPUBKEY | sudo tee -a ${MOUNTPTH}/home/$MAINUSER/.ssh/authorized_keys
 
 ## newest zsh config
 [[ -e ~/.zshrc ]] && sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/home/$MAINUSER/
-chown 1000:1000 -R ${MOUNTPTH}/home/$MAINUSER/
+sudo chown 1000:1000 -R ${MOUNTPTH}/home/$MAINUSER/
+sudo chmod 0750 ${MOUNTPTH}/home/$MAINUSER/
+sudo chmod 0750 ${MOUNTPTH}/home/$MAINUSER/.ssh
 [[ -e ~/.zshrc ]] &&sudo cp ~/.zshrc(N) ~/.zshrc.local(N) ${MOUNTPTH}/root/
 
 ## set root read-only
