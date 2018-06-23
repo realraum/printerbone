@@ -24,6 +24,10 @@ Modifiactions include:
 - adding cups and needed packages
 - configure ssh and passwords
 
+### uBoot Upgrade
+
+The image requires a current version of the bootloader on the BB.
+See <tt>https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_Overlays</tt> or just run <tt>/opt/scripts/tools/developers/update_bootloader.sh</tt>
 
 License
 -------
