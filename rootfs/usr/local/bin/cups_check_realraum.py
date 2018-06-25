@@ -17,7 +17,6 @@ time_between_checks=1*20
 printers_name="HP_LaserJet_8000_Series"
 #printer_usb_name="Samsung CLP-550 Series"
 printer_usb_name="QinHeng Electronics CH340S"
-touch_file="/var/run/cups/"+printers_name+".powerswitch"
 
 def isPrinterUsbConnected(printer_usb_name):
     try:
@@ -35,17 +34,8 @@ def isPrinterKnownToCups(cc,printer_name_startswith):
 def getPrinterPowerStatus():
     return GPIO.input(relay_pin)
 
-def timeSinceLastToggle():
-    global touch_file
-    if os.path.exists(touch_file):
-        toggle_time = os.path.getmtime(touch_file)
-        return time.time() - toggle_time
-    else:
-        return 99999999;
-
 if __name__ == "__main__":
     GPIO.setup(relay_pin, GPIO.OUT)
-    GPIO.output(relay_pin,GPIO.LOW)
 
     print "connecting to CUPS..."
     cc = cups.Connection()
@@ -61,10 +51,9 @@ if __name__ == "__main__":
         if job_ids_completed:
             last_highest_completed_job_id = max(job_ids_completed)
             seconds_idle = time.time() - cc.getJobAttributes(last_highest_completed_job_id,requested_attributes=["time-at-completed"])["time-at-completed"]
-        seconds_toggle = timeSinceLastToggle()
 
         #print "jobs_pending:", jobs_pending
-        #print "printer_idle:", printer_idle, "last_highest_completed_job_id:", last_highest_completed_job_id,"seconds_idle:", seconds_idle, "seconds_toggle:", seconds_toggle
+        #print "printer_idle:", printer_idle, "last_highest_completed_job_id:", last_highest_completed_job_id,"seconds_idle:", seconds_idle
 
         printer_future_on = getPrinterPowerStatus()
         if printer_idle:
