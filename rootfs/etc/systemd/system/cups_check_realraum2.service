@@ -1,0 +1,18 @@
+[Unit]
+Description=CUPS PrinterQueue Check and Power Switcher
+Wants=network.target
+Wants=cups.service
+After=cups.service
+
+[Service]
+Type=simple
+Environment="PYTHON_EGG_CACHE=/var/cache/pychache/"
+ExecStart=/usr/local/bin/cups_check_realraum2.py
+User=root
+Nice=5
+ReadWritePaths=-/var/run/cups/cups.sock -/dev/bus/usb /sys/class/gpio -/root/.cache/
+PrivateTmp=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
