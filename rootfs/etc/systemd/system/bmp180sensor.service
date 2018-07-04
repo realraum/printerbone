@@ -1,0 +1,16 @@
+[Unit]
+Description=BMP180 Sensor Data Forwarder
+Wants=network.target
+
+[Service]
+Type=simple
+Environment="PYTHON_EGG_CACHE=/var/cache/pychache/"
+ExecStart=/usr/local/bin/bmp180sensor.py
+User=root
+Nice=5
+ReadWritePaths=/sys/bus/i2c/ -/dev/bus/usb /sys/class/gpio -/root/.cache/
+PrivateTmp=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
