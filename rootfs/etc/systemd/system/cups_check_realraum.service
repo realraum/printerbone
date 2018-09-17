@@ -6,7 +6,8 @@ After=cups.service
 
 [Service]
 Type=simple
-Environment="PYTHON_EGG_CACHE=/var/cache/pychache/"
+Environment="PYTHON_EGG_CACHE=/var/cache/pycache/"
+ExecStartPre=/bin/mkdir -p /var/cache/pycache
 ExecStart=/usr/local/bin/cups_check_realraum.py
 User=root
 Nice=5
