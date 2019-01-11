@@ -14,8 +14,7 @@ relay_pin="P9_12"
 
 time_needed_to_warm_up_print_pages_in_printer_mem_and_cool_down=20*60
 time_between_checks=1*20
-printers_name="HP_LaserJet_8000_Series"
-#printer_usb_name="Samsung CLP-550 Series"
+printers_names=["HP_Laserjet_8000_PCL_fast","HP_LaserJet_8000_PostScript_slow"]
 printer_usb_name="QinHeng Electronics CH340S"
 
 def isPrinterUsbConnected(printer_usb_name):
@@ -41,13 +40,14 @@ if __name__ == "__main__":
     cc = cups.Connection()
     last_highest_completed_job_id = 1
     seconds_idle = 2*time_needed_to_warm_up_print_pages_in_printer_mem_and_cool_down
-    print "isPrinterKnownToCups:", isPrinterKnownToCups(cc,printers_name)
+    for printers_name in printers_names:
+        print "isPrinterKnownToCups:", isPrinterKnownToCups(cc,printers_name)
     print "isPrinterUsbConnected:", isPrinterUsbConnected(printer_usb_name)
     while True:
         # jobs_pending = cc.getJobs(my_jobs=False)
-        jobs_pending = filter(lambda jobid: cc.getJobAttributes(jobid,requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name),cc.getJobs(my_jobs=False).keys())
+        jobs_pending = [jobid for jobid in cc.getJobs(my_jobs=False).keys() if any([cc.getJobAttributes(jobid, requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name) for printers_name in printers_names])]
         printer_idle = len(jobs_pending) == 0
-        job_ids_completed = filter(lambda jobid: cc.getJobAttributes(jobid,requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name),cc.getJobs(which_jobs="completed",first_job_id=last_highest_completed_job_id).keys())
+        job_ids_completed = [jobid for jobid in cc.getJobs(which_jobs="completed",first_job_id=last_highest_completed_job_id).keys() if any([cc.getJobAttributes(jobid, requested_attributes=["printer-uri"])["printer-uri"].endswith(printers_name) for printers_name in printers_names])]
         if job_ids_completed:
             last_highest_completed_job_id = max(job_ids_completed)
             seconds_idle = time.time() - cc.getJobAttributes(last_highest_completed_job_id,requested_attributes=["time-at-completed"])["time-at-completed"]
