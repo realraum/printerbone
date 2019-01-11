@@ -39,22 +39,3 @@ KLimit 0
 OpPolicy default
 ErrorPolicy retry-job
 </DefaultPrinter>
-<Printer HP_LaserJet_8000_PostScript_slow>
-UUID urn:uuid:ba210fe8-3df0-3f0f-51bc-91017c0b71da
-Info HP LaserJet 8000 Series (Slow,A3,A4)
-Location realraum Whg2Raum1
-MakeModel HP LaserJet 8000 Foomatic/Postscript
-DeviceURI usb://HP/LaserJet%208000%20Series
-State Idle
-StateTime 1547249290
-ConfigTime 1547249303
-Type 8433684
-Accepting Yes
-Shared Yes
-JobSheets none none
-QuotaPeriod 0
-PageLimit 0
-KLimit 0
-OpPolicy default
-ErrorPolicy retry-job
-</Printer>

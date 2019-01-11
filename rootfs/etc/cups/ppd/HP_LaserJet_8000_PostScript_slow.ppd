@@ -128,7 +128,7 @@
 *PageRegion Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
 *CloseUI: *PageRegion
 
-*DefaultImageableArea: Letter
+*DefaultImageableArea: A4
 *ImageableArea Letter/US Letter: "18 36 594 756"
 *ImageableArea A4/A4: "18 36 577 806"
 *ImageableArea 11x17/11x17: "18 36 774 1188"
@@ -143,7 +143,7 @@
 *ImageableArea Executive/Executive: "18 36 504 720"
 *ImageableArea Legal/US Legal: "18 36 594 972"
 
-*DefaultPaperDimension: Letter
+*DefaultPaperDimension: A4
 *PaperDimension Letter/US Letter: "612 792"
 *PaperDimension A4/A4: "595 842"
 *PaperDimension 11x17/11x17: "792 1224"
@@ -290,7 +290,7 @@
 
 *OpenUI *Duplex/Double-Sided Printing: PickOne
 *OrderDependency: 130 AnySetup *Duplex
-*DefaultDuplex: None
+*DefaultDuplex: DuplexNoTumble
 *Duplex DuplexNoTumble/Long Edge (Standard): "<</Duplex true /Tumble false>>setpagedevice"
 *Duplex DuplexTumble/Short Edge (Flip): "<</Duplex true /Tumble true>>setpagedevice"
 *Duplex None/Off: "<</Duplex false>>setpagedevice"
