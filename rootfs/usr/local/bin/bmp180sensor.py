@@ -30,9 +30,9 @@ def decodeR3Payload(payload):
 def getAndPublishBMP085SensorValues(client):
     ts=int(time.time())
     sendR3Message(client, "realraum/" + myclientid_ + "/temperature",
-                      {"Location": "PrinterBone", "Value": sensor.read_temperature(), "Ts": ts}, retain=True)
+                      {"Location": "PrinterBone", "Value": sensor.read_temperature(), "Ts": ts}, retain=False)
     sendR3Message(client, "realraum/" + myclientid_ + "/barometer",
-                      {"Location": "PrinterBone", "HPa": sensor.read_pressure()/100.0, "Ts": ts}, retain=True)
+                      {"Location": "PrinterBone", "HPa": sensor.read_pressure()/100.0, "Ts": ts}, retain=False)
 
 
 def onMQTTDisconnect(mqttc, userdata, rc):
