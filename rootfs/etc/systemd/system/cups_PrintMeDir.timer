@@ -1,0 +1,9 @@
+[Unit]
+Description=regularily check if there are files to print
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+
+[Install]
+WantedBy=multi-user.target
