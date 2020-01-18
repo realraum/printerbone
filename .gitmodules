@@ -1,0 +1,3 @@
+[submodule "golang-http-file-upload"]
+	path = golang-http-file-upload
+	url = git@github.com:btittelbach/golang-http-file-upload

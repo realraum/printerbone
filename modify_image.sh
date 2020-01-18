@@ -166,6 +166,12 @@ sudo sed -i '/mmcblk0p1/s/noatime,/noatime,ro,/' ${MOUNTPTH}/etc/fstab
 
 setpassword $MAINUSER $R3PASS_STORELOC
 
+## compile and install webserver for uploads
+git submodule update ./golang-http-file-upload 
+gobuildandcp ./golang-http-file-upload ${MOUNTPTH}/usr/local/bin/
+sudo mkdir -p ${MOUNTPTH}/var/www/golang-http-file-upload
+sudo rsync --chown=root:root -vr ./golang-http-file-upload/public/  ${MOUNTPTH}/var/www/golang-http-file-upload/
+
 ### ssh-keygen for hostkeys...
 runchroot /usr/sbin/dpkg-reconfigure openssh-server
 runchroot /usr/bin/chsh -s /bin/zsh root
