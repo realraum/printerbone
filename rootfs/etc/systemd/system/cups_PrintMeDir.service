@@ -4,7 +4,7 @@ Description=CUPS Print Stuff in Directory
 [Service]
 Type=oneshot
 User=debian
-ExecStart=/bin/zsh -c 'for f in /tmp/PrintMeDir/*(.N); do lpr -P HP_Laserjet_8000_PCL_fast "$f" && rm -f "$f"; done'
+ExecStart=/bin/zsh -c 'for f in /tmp/PrintMeDir/*(.N); do lpr -P HP_Laserjet_8000_PCL_fast -o fit-to-page -o media=a4 "$f" && rm -f "$f"; done'
 
 [Install]
 WantedBy=multi-user.target
