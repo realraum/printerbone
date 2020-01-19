@@ -2,9 +2,11 @@
 Description=CUPS Print Stuff in Directory
 
 [Service]
-Type=oneshot
+Type=simple
 User=debian
-ExecStart=/bin/zsh -c 'for f in /tmp/PrintMeDir/*(.N); do lpr -P HP_Laserjet_8000_PCL_fast -o fit-to-page -o media=a4 "$f" && rm -f "$f"; done'
+Environment="PRINTDIR=/tmp/PrintMeDir"
+ExecStartPre="/bin/zsh -c '/bin/mkdir -p $PRINTDIR && /bin/chmod 777 $PRINTDIR'"
+ExecStart=/bin/zsh -c 'while [[ -d $PRINTDIR ]]; do inotifywait -qq -e moved_to ${PRINTDIR} && while [ ${PRINTDIR}(FN) ]; do for f in ${PRINTDIR}/*(.N); do lpr -P HP_Laserjet_8000_PCL_fast -o fit-to-page -o media=a4 "$f" && rm -f "$f"; done; done; done'
 
 [Install]
 WantedBy=multi-user.target
