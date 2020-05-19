@@ -4,11 +4,11 @@ Wants=network.target
 
 [Service]
 Type=simple
-Environment="GOLANGHTTPUPLOAD_UPLOAD_PATH=/tmp/PrintMeDir" "GOLANGHTTPUPLOAD_SERVE_PATH=/var/www/golang-http-file-upload" "GOLANGHTTPUPLOAD_BINDIP_PORT=:80"
+Environment="GOLANGHTTPUPLOAD_UPLOAD_PATH1=/tmp/PrintMeDirA4" "GOLANGHTTPUPLOAD_UPLOAD_PATH2=/tmp/PrintMeDirA3" "GOLANGHTTPUPLOAD_SERVE_PATH=/var/www/golang-http-file-upload" "GOLANGHTTPUPLOAD_BINDIP_PORT=:80"
 ExecStart=/usr/local/bin/golang-http-file-upload
 User=debian
 Nice=10
-ReadWritePaths=-/tmp/PrintMeDir
+ReadWritePaths=-/tmp/PrintMeDirA4 -/tmp/PrintMeDirA3
 ReadOnlyPaths=/var/www/golang-http-file-upload
 Restart=always
 AmbientCapabilities=CAP_NET_BIND_SERVICE
