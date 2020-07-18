@@ -1,0 +1,22 @@
+[Unit]
+Description=zigbee2mqtt
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/home/zigbee2mqtt/zigbee2mqtt
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=zigbee2mqtt
+Group=zigbee2mqtt
+ProtectSystem=strict
+PrivateTmp=true
+ProtectKernelTunables=true
+NoNewPrivileges=true
+ProtectKernelModules=true
+ReadWritePaths=/var/log/zigbee2mqtt/
+
+[Install]
+WantedBy=multi-user.target
+
