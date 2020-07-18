@@ -1,0 +1,29 @@
+homeassistant: false
+permit_join: false
+mqtt:
+  base_topic: zigbee2mqtt/w2
+  server: 'mqtt://mqtt.realraum.at'
+serial:
+  port: >-
+    /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B001CD480D9-if00
+advanced:
+  network_key:
+    - 202
+    - 216
+    - 74
+    - 108
+    - 70
+    - 138
+    - 87
+    - 39
+    - 174
+    - 77
+    - 243
+    - 164
+    - 127
+    - 186
+    - 138
+    - 189
+devices:
+  '0x00158d00053fb902':
+    friendly_name: 'AjarWindowR2W2right'
