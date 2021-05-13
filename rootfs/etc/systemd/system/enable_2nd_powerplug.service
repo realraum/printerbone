@@ -1,0 +1,11 @@
+[Unit]
+Description=Just switch power on
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/enable_2nd_powerplug.py
+User=root
+Nice=5
+
+[Install]
+WantedBy=multi-user.target
