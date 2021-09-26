@@ -1,4 +1,4 @@
-homeassistant: false
+homeassistant: true
 permit_join: false
 mqtt:
   base_topic: zigbee2mqtt/w2
@@ -26,4 +26,12 @@ advanced:
     - 189
 devices:
   '0x00158d00053fb902':
-    friendly_name: 'AjarWindowR2W2right'
+    friendly_name: AjarWindowR2W2right
+  '0x00158d00054e940d':
+    friendly_name: AjarWindowTesla
+  '0x00158d00054e947e':
+    friendly_name: AjarWindowR2W2left
+  '0x00158d0005783e29':
+    friendly_name: AjarWindowKitchen
+  '0x804b50fffe606a4b':
+    friendly_name: 'TradfriOutletZigbeeRouterR2W2'
