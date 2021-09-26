@@ -16,7 +16,7 @@ ProtectKernelTunables=true
 NoNewPrivileges=true
 ProtectKernelModules=true
 ReadWritePaths=/var/log/zigbee2mqtt/
-MemoryMax=100M
+MemoryMax=150M
 
 [Install]
 WantedBy=multi-user.target
