@@ -6,7 +6,7 @@ Type=simple
 User=debian
 Environment="PRINTDIR_A4=/tmp/PrintMeDirA4" "PRINTDIR_A3=/tmp/PrintMeDirA3"
 ExecStartPre="/bin/zsh -c '/bin/mkdir -p $PRINTDIR_A4 && /bin/chmod 777 $PRINTDIR_A4; /bin/mkdir -p $PRINTDIR_A3 && /bin/chmod 777 $PRINTDIR_A3'"
-ExecStart=/bin/zsh -c 'while [[ -d $PRINTDIR_A4 && $PRINTDIR_A3 ]]; do if inotifywait -qq -e moved_to ${PRINTDIR_A4} ${PRINTDIR_A3}; then  while [ ${PRINTDIR_A4}(FN) ]; do for f in ${PRINTDIR_A4}/*(.N); do lpr -P HP_Laserjet_8000_PCL_fast -o fit-to-page -o media=a4 "$f" && rm -f "$f"; done; done; while [ ${PRINTDIR_A3}(FN) ]; do for f in ${PRINTDIR_A3}/*(.N); do lpr -P HP_Laserjet_8000_PCL_fast -o fit-to-page -o media=a3 "$f" && rm -f "$f"; done; done; fi; done'
+ExecStart=/bin/zsh -c 'while [[ -d $PRINTDIR_A4 && $PRINTDIR_A3 ]]; do if inotifywait -qq -e moved_to ${PRINTDIR_A4} ${PRINTDIR_A3}; then  while [ ${PRINTDIR_A4}(FN) ]; do for f in ${PRINTDIR_A4}/*(.N); do lpr -P HP_Color_LaserJet_CP2025dn -o fit-to-page -o media=a4 "$f" && rm -f "$f"; done; done; while [ ${PRINTDIR_A3}(FN) ]; do for f in ${PRINTDIR_A3}/*(.N); do lpr -P HP_Color_LaserJet_CP2025dn -o fit-to-page -o media=a3 "$f" && rm -f "$f"; done; done; fi; done'
 
 [Install]
 WantedBy=multi-user.target
